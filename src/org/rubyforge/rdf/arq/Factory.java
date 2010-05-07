@@ -16,15 +16,19 @@ import com.hp.hpl.jena.sparql.core.Quad;
  * @author Arto Bendiken
  */
 public class Factory extends org.rubyforge.rdf.Factory {
+  public Factory() {
+    super();
+  }
+
   /**
-   * @param  runtime    the Ruby runtime to use
+   * @param  runtime     the Ruby runtime to use
    */
   public Factory(Ruby runtime) {
     super(runtime);
   }
 
   /**
-   * @param  node       the Jena node
+   * @param  node        the Jena node
    * @return an RDF::Value instance
    */
   public RubyObject newValue(Node node) {
@@ -40,7 +44,7 @@ public class Factory extends org.rubyforge.rdf.Factory {
   }
 
   /**
-   * @param  match      the Jena triple matcher
+   * @param  match       the Jena triple matcher
    * @return an RDF::Pattern instance
    */
   public RubyObject newPattern(TripleMatch match) {
@@ -52,7 +56,7 @@ public class Factory extends org.rubyforge.rdf.Factory {
   }
 
   /**
-   * @param  triple     the Jena triple
+   * @param  triple      the Jena triple
    * @return an RDF::Pattern instance
    */
   public RubyObject newPattern(Triple triple) {
@@ -60,7 +64,7 @@ public class Factory extends org.rubyforge.rdf.Factory {
   }
 
   /**
-   * @param  quad       the ARQ quad
+   * @param  quad        the ARQ quad
    * @return an RDF::Pattern instance
    */
   public RubyObject newPattern(Quad quad) {
@@ -68,9 +72,9 @@ public class Factory extends org.rubyforge.rdf.Factory {
   }
 
   /**
-   * @param  subject    the subject term
-   * @param  predicate  the predicate term
-   * @param  object     the object term
+   * @param  subject     the subject term
+   * @param  predicate   the predicate term
+   * @param  object      the object term
    * @return an RDF::Pattern instance
    */
   public RubyObject newPattern(Node subject, Node predicate, Node object) {
@@ -78,10 +82,10 @@ public class Factory extends org.rubyforge.rdf.Factory {
   }
 
   /**
-   * @param  subject    the subject term
-   * @param  predicate  the predicate term
-   * @param  object     the object term
-   * @param  context    the context term
+   * @param  subject     the subject term
+   * @param  predicate   the predicate term
+   * @param  object      the object term
+   * @param  context     the context term
    * @return an RDF::Pattern instance
    */
   public RubyObject newPattern(Node subject, Node predicate, Node object, Node context) {
@@ -89,7 +93,7 @@ public class Factory extends org.rubyforge.rdf.Factory {
   }
 
   /**
-   * @param  triple     the Jena triple
+   * @param  triple      the Jena triple
    * @return an RDF::Statement instance
    */
   public RubyObject newStatement(Triple triple) {
@@ -97,7 +101,7 @@ public class Factory extends org.rubyforge.rdf.Factory {
   }
 
   /**
-   * @param  quad       the ARQ quad
+   * @param  quad        the ARQ quad
    * @return an RDF::Statement instance
    */
   public RubyObject newStatement(Quad quad) {
@@ -105,9 +109,9 @@ public class Factory extends org.rubyforge.rdf.Factory {
   }
 
   /**
-   * @param  subject    the subject term
-   * @param  predicate  the predicate term
-   * @param  object     the object term
+   * @param  subject     the subject term
+   * @param  predicate   the predicate term
+   * @param  object      the object term
    * @return an RDF::Statement instance
    */
   public RubyObject newStatement(Node subject, Node predicate, Node object) {
@@ -115,10 +119,10 @@ public class Factory extends org.rubyforge.rdf.Factory {
   }
 
   /**
-   * @param  subject    the subject term
-   * @param  predicate  the predicate term
-   * @param  object     the object term
-   * @param  context    the context term
+   * @param  subject     the subject term
+   * @param  predicate   the predicate term
+   * @param  object      the object term
+   * @param  context     the context term
    * @return an RDF::Statement instance
    */
   public RubyObject newStatement(Node subject, Node predicate, Node object, Node context) {
@@ -126,7 +130,7 @@ public class Factory extends org.rubyforge.rdf.Factory {
   }
 
   /**
-   * @param  triple     the Jena triple
+   * @param  triple      the Jena triple
    * @return a Ruby array with 3 elements
    */
   public RubyArray newTriple(Triple triple) {
@@ -134,9 +138,9 @@ public class Factory extends org.rubyforge.rdf.Factory {
   }
 
   /**
-   * @param  subject    the subject term
-   * @param  predicate  the predicate term
-   * @param  object     the object term
+   * @param  subject     the subject term
+   * @param  predicate   the predicate term
+   * @param  object      the object term
    * @return a Ruby array with 3 elements
    */
   public RubyArray newTriple(Node subject, Node predicate, Node object) {
@@ -144,7 +148,7 @@ public class Factory extends org.rubyforge.rdf.Factory {
   }
 
   /**
-   * @param  quad       the ARQ quad
+   * @param  quad        the ARQ quad
    * @return a Ruby array with 4 elements
    */
   public RubyArray newQuad(Quad quad) {
@@ -152,10 +156,10 @@ public class Factory extends org.rubyforge.rdf.Factory {
   }
 
   /**
-   * @param  subject    the subject term
-   * @param  predicate  the predicate term
-   * @param  object     the object term
-   * @param  context    the context term
+   * @param  subject     the subject term
+   * @param  predicate   the predicate term
+   * @param  object      the object term
+   * @param  context     the context term
    * @return a Ruby array with 4 elements
    */
   public RubyArray newQuad(Node subject, Node predicate, Node object, Node context) {
