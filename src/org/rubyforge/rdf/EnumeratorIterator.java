@@ -4,7 +4,8 @@ import org.jruby.*;
 import java.util.Iterator;
 
 /**
- * Wraps an RDF::Enumerator<T> instance into a java.util.Iterator<T>.
+ * Wraps a <code>java.util.Iterator&lt;T2&gt;</code> interface around a
+ * Ruby <code>RDF::Enumerator&lt;T1&gt;</code> instance.
  *
  * @author Arto Bendiken
  */
