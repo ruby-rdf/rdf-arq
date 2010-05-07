@@ -9,6 +9,7 @@ import com.hp.hpl.jena.graph.Triple;
 import com.hp.hpl.jena.graph.TripleMatch;
 import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.sparql.core.Quad;
+import com.hp.hpl.jena.rdf.model.AnonId;
 
 /**
  * A factory class for instantiating RDF.rb objects.
@@ -25,6 +26,24 @@ public class Factory extends org.rubyforge.rdf.Factory {
    */
   public Factory(Ruby runtime) {
     super(runtime);
+  }
+
+  /**
+   * @param  value       an RDF::Value instance
+   * @return a Jena node
+   */
+  public static Node newNode(RubyObject value) { // TODO
+    String className = value.callMethod("class").toString();
+    if (className.equals("RDF::Node")) {
+      return Node.createAnon(AnonId.create(value.callMethod("id").toString()));
+    }
+    if (className.equals("RDF::URI")) {
+      return Node.createURI(value.toString());
+    }
+    if (className.equals("RDF::Literal")) {
+      return Node.createLiteral(value.callMethod("value").toString()); // FIXME
+    }
+    return null;
   }
 
   /**
