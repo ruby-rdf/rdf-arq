@@ -20,7 +20,7 @@ public class Factory {
   }
 
   /**
-   * @param  runtime  the Ruby runtime to use
+   * @param  runtime    the Ruby runtime to use
    */
   public Factory(Ruby runtime) {
     setRuntime(runtime);
@@ -28,7 +28,7 @@ public class Factory {
   }
 
   /**
-   * @param  runtime  the Ruby runtime to use
+   * @param  runtime    the Ruby runtime to use
    */
   public void setRuntime(Ruby runtime) {
     this.runtime = runtime;
@@ -126,7 +126,7 @@ public class Factory {
   }
 
   /**
-   * @param  object  a Ruby object responding to #to_enum
+   * @param  object     a Ruby object responding to #to_enum
    * @return an Enumerator instance
    */
   public RubyEnumerator getEnumerator(IRubyObject object) {
@@ -150,7 +150,7 @@ public class Factory {
   }
 
   /**
-   * @param  string  a Java string
+   * @param  string     a Java string
    * @return the corresponding Ruby string
    */
   public RubyString newString(String string) {
@@ -165,7 +165,7 @@ public class Factory {
   }
 
   /**
-   * @param  number  a Java integer
+   * @param  number     a Java integer
    * @return the corresponding Ruby integer
    */
   public RubyInteger newInteger(int number) {
@@ -187,24 +187,24 @@ public class Factory {
   }
 
   /**
-   * @param  s  the subject term
-   * @param  p  the predicate term
-   * @param  o  the object term
+   * @param  subject    the subject term
+   * @param  predicate  the predicate term
+   * @param  object     the object term
    * @return an RDF::Pattern instance
    */
-  public RubyObject newPattern(IRubyObject s, IRubyObject p, IRubyObject o) {
-    return newTriple(s, p, o); // FIXME
+  public RubyObject newPattern(IRubyObject subject, IRubyObject predicate, IRubyObject object) {
+    return newTriple(subject, predicate, object); // FIXME
   }
 
   /**
-   * @param  s  the subject term
-   * @param  p  the predicate term
-   * @param  o  the object term
-   * @param  c  the context term
+   * @param  subject    the subject term
+   * @param  predicate  the predicate term
+   * @param  object     the object term
+   * @param  context    the context term
    * @return an RDF::Pattern instance
    */
-  public RubyObject newPattern(IRubyObject s, IRubyObject p, IRubyObject o, IRubyObject c) {
-    return newQuad(s, p, o, c); // FIXME
+  public RubyObject newPattern(IRubyObject subject, IRubyObject predicate, IRubyObject object, IRubyObject context) {
+    return newQuad(subject, predicate, object, context); // FIXME
   }
 
   /**
@@ -215,7 +215,7 @@ public class Factory {
   }
 
   /**
-   * @param  name  the variable name
+   * @param  name       the variable name
    * @return an RDF::Variable instance
    */
   public RubyObject newVariable(String name) {
@@ -223,7 +223,7 @@ public class Factory {
   }
 
   /**
-   * @param  name  the variable name
+   * @param  name       the variable name
    * @return an RDF::Variable instance
    */
   public RubyObject newVariable(IRubyObject name) {
@@ -231,45 +231,45 @@ public class Factory {
   }
 
   /**
-   * @param  s  the subject term
-   * @param  p  the predicate term
-   * @param  o  the object term
+   * @param  subject    the subject term
+   * @param  predicate  the predicate term
+   * @param  object     the object term
    * @return an RDF::Statement instance
    */
-  public RubyObject newStatement(IRubyObject s, IRubyObject p, IRubyObject o) {
-    return newTriple(s, p, o); // FIXME
+  public RubyObject newStatement(IRubyObject subject, IRubyObject predicate, IRubyObject object) {
+    return newTriple(subject, predicate, object); // FIXME
   }
 
   /**
-   * @param  s  the subject term
-   * @param  p  the predicate term
-   * @param  o  the object term
-   * @param  c  the context term
+   * @param  subject    the subject term
+   * @param  predicate  the predicate term
+   * @param  object     the object term
+   * @param  context    the context term
    * @return an RDF::Statement instance
    */
-  public RubyObject newStatement(IRubyObject s, IRubyObject p, IRubyObject o, IRubyObject c) {
-    return newQuad(s, p, o, c); // FIXME
+  public RubyObject newStatement(IRubyObject subject, IRubyObject predicate, IRubyObject object, IRubyObject context) {
+    return newQuad(subject, predicate, object, context); // FIXME
   }
 
   /**
-   * @param  s  the subject term
-   * @param  p  the predicate term
-   * @param  o  the object term
+   * @param  subject    the subject term
+   * @param  predicate  the predicate term
+   * @param  object     the object term
    * @return a Ruby array with 3 elements
    */
-  public RubyObject newTriple(IRubyObject s, IRubyObject p, IRubyObject o) {
-    return getRuntime().newArray(s, p, o);
+  public RubyArray newTriple(IRubyObject subject, IRubyObject predicate, IRubyObject object) {
+    return getRuntime().newArray(subject, predicate, object);
   }
 
   /**
-   * @param  s  the subject term
-   * @param  p  the predicate term
-   * @param  o  the object term
-   * @param  c  the context term
+   * @param  subject    the subject term
+   * @param  predicate  the predicate term
+   * @param  object     the object term
+   * @param  context    the context term
    * @return a Ruby array with 4 elements
    */
-  public RubyObject newQuad(IRubyObject s, IRubyObject p, IRubyObject o, IRubyObject c) {
-    return getRuntime().newArray(s, p, o, c);
+  public RubyArray newQuad(IRubyObject subject, IRubyObject predicate, IRubyObject object, IRubyObject context) {
+    return getRuntime().newArray(subject, predicate, object, context);
   }
 
   /**
@@ -280,7 +280,7 @@ public class Factory {
   }
 
   /**
-   * @param  id  the blank node identifier
+   * @param  id         the blank node identifier
    * @return an RDF::Node instance
    */
   public RubyObject newNode(String id) {
@@ -288,7 +288,7 @@ public class Factory {
   }
 
   /**
-   * @param  id  the blank node identifier
+   * @param  id         the blank node identifier
    * @return an RDF::Node instance
    */
   public RubyObject newNode(IRubyObject id) {
@@ -296,7 +296,7 @@ public class Factory {
   }
 
   /**
-   * @param  uri  the URI string
+   * @param  uri        the URI string
    * @return an RDF::URI instance
    */
   public RubyObject newURI(String uri) {
@@ -304,7 +304,7 @@ public class Factory {
   }
 
   /**
-   * @param  uri  the URI string
+   * @param  uri        the URI string
    * @return an RDF::URI instance
    */
   public RubyObject newURI(IRubyObject uri) {
@@ -312,7 +312,7 @@ public class Factory {
   }
 
   /**
-   * @param  value  the literal's value
+   * @param  value      the literal's value
    * @return an RDF::Literal instance
    */
   public RubyObject newLiteral(Object value) {
@@ -320,7 +320,7 @@ public class Factory {
   }
 
   /**
-   * @param  value  the literal's value
+   * @param  value      the literal's value
    * @return an RDF::Literal instance
    */
   public RubyObject newLiteral(String value) {
@@ -328,7 +328,7 @@ public class Factory {
   }
 
   /**
-   * @param  value  the literal's value
+   * @param  value      the literal's value
    * @return an RDF::Literal instance
    */
   public RubyObject newLiteral(IRubyObject value) {
@@ -336,8 +336,8 @@ public class Factory {
   }
 
   /**
-   * @param  value     the literal's value
-   * @param  language  the language tag
+   * @param  value      the literal's value
+   * @param  language   the language tag
    * @return an RDF::Literal instance
    */
   public RubyObject newLiteralWithLanguage(Object value, String language) { // TODO
@@ -345,8 +345,8 @@ public class Factory {
   }
 
   /**
-   * @param  value     the literal's value
-   * @param  datatype  the datatype URI string
+   * @param  value      the literal's value
+   * @param  datatype   the datatype URI string
    * @return an RDF::Literal instance
    */
   public RubyObject newLiteralWithDatatype(Object value, String datatype) { // TODO
