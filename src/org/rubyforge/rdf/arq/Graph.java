@@ -15,6 +15,12 @@ public class Graph extends GraphBase {
   private RubyObject graph;
   private Factory factory;
 
+  public Graph() {
+    super();
+    this.factory = new Factory();
+    this.graph   = factory.newGraph();
+  }
+
   /**
    * @param  graph      the RDF::Graph instance
    */

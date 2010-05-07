@@ -1,8 +1,7 @@
 package org.rubyforge.rdf.arq;
 
 import org.jruby.*;
-import org.jruby.runtime.builtin.IRubyObject;
-import org.jruby.runtime.Block;
+import java.util.Iterator;
 import com.hp.hpl.jena.graph.Triple;
 import com.hp.hpl.jena.graph.TripleMatch;
 import com.hp.hpl.jena.graph.Node;
@@ -11,17 +10,20 @@ import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 import com.hp.hpl.jena.util.iterator.NiceIterator;
 
 /**
- * Wraps an RDF::Enumerator instance for Jena/ARQ compatibility.
+ * Wraps a <code>ExtendedIterator&lt;Triple&gt;</code> interface around a
+ * Ruby <code>RDF::Enumerator&lt;RDF::Statement&gt;</code> instance.
  *
  * @author Arto Bendiken
  */
-public class TripleIterator extends NiceIterator<Triple> implements ExtendedIterator<Triple>, com.hp.hpl.jena.graph.TripleIterator {
-  private Ruby runtime;
+public class TripleIterator extends NiceIterator<Triple> implements Iterable<Triple>, ExtendedIterator<Triple>, com.hp.hpl.jena.graph.TripleIterator {
+  private Factory factory;
   private RubyEnumerator enumerator;
   private RubyObject generator;
 
+  public TripleIterator() {} // FIXME
+
   /**
-   * @param  object  a Ruby object that responds to #to_enum
+   * @param  object      a Ruby object responding to #to_enum
    */
   public TripleIterator(RubyObject object) {
     this((RubyEnumerator)object.callMethod("to_enum"));
@@ -31,11 +33,18 @@ public class TripleIterator extends NiceIterator<Triple> implements ExtendedIter
    * @param  enumerator  a Ruby enumerator
    */
   public TripleIterator(RubyEnumerator enumerator) {
+    this.factory    = new Factory(enumerator.getRuntime());
+    factory.require("generator");
+    this.generator  = factory.newInstance(factory.getClass("Generator").getClass("Threaded"), enumerator);
     this.enumerator = enumerator;
-    this.runtime    = enumerator.getRuntime();
-    runtime.getLoadService().lockAndRequire("generator"); // require 'generator'
-    this.generator  = (RubyObject)(runtime.getClass("Generator").getClass("Threaded").
-      newInstance(runtime.getCurrentContext(), new IRubyObject[]{enumerator}, Block.NULL_BLOCK));
+  }
+
+  /**
+   * @see java.lang.Iterable#iterator()
+   */
+  @Override
+  public Iterator<Triple> iterator() {
+    return this;
   }
 
   /**
@@ -51,12 +60,7 @@ public class TripleIterator extends NiceIterator<Triple> implements ExtendedIter
    */
   @Override
   public Triple next() {
-    RubyObject statement = (RubyObject)generator.callMethod("next");
-    return new Triple(
-      makeNode((RubyObject)statement.callMethod("subject")),
-      makeNode((RubyObject)statement.callMethod("predicate")),
-      makeNode((RubyObject)statement.callMethod("object"))
-    );
+    return yield((RubyObject)generator.callMethod("next"));
   }
 
   /**
@@ -68,20 +72,14 @@ public class TripleIterator extends NiceIterator<Triple> implements ExtendedIter
   }
 
   /**
-   * @param  value  an RDF::Value instance
-   * @return a Node instance
+   * @param  statement   an RDF::Statement instance
+   * @return a Triple instance
    */
-  protected Node makeNode(RubyObject value) { // TODO
-    String className = value.callMethod("class").toString();
-    if (className.equals("RDF::Node")) {
-      return Node.createAnon(AnonId.create(value.callMethod("id").toString()));
-    }
-    if (className.equals("RDF::URI")) {
-      return Node.createURI(value.toString());
-    }
-    if (className.equals("RDF::Literal")) {
-      return Node.createLiteral(value.callMethod("value").toString()); // FIXME
-    }
-    return null;
+  protected Triple yield(RubyObject statement) {
+    return new Triple(
+      Factory.newNode((RubyObject)statement.callMethod("subject")),
+      Factory.newNode((RubyObject)statement.callMethod("predicate")),
+      Factory.newNode((RubyObject)statement.callMethod("object"))
+    );
   }
 }

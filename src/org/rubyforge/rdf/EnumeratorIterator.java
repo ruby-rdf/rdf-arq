@@ -9,7 +9,7 @@ import java.util.Iterator;
  *
  * @author Arto Bendiken
  */
-public abstract class EnumeratorIterator<T> implements Iterator<T>, Iterable<T> {
+public abstract class EnumeratorIterator<T> implements Iterable<T>, Iterator<T> {
   private Factory factory;
   private RubyEnumerator enumerator;
   private RubyObject generator;
