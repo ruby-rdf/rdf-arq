@@ -24,7 +24,7 @@ public class Factory {
    */
   public Factory(Ruby runtime) {
     setRuntime(runtime);
-    getModule();
+    getRDF();
   }
 
   /**
@@ -49,9 +49,32 @@ public class Factory {
   }
 
   /**
+   * @param  library     the name of the library to be loaded
+   */
+  public void require(String library) {
+    getRuntime().getLoadService().lockAndRequire(library);
+  }
+
+  /**
+   * @param  name        the class name
+   * @return a Ruby module
+   */
+  public RubyClass getClass(String name) {
+    return getRuntime().getClass(name);
+  }
+
+  /**
+   * @param  name        the module name
+   * @return a Ruby module
+   */
+  public RubyModule getModule(String name) {
+    return getRuntime().getModule(name);
+  }
+
+  /**
    * @return the RDF module
    */
-  public RubyModule getModule() {
+  public RubyModule getRDF() {
     return (module != null) ? module : (module = getRuntime().getModule("RDF"));
   }
 
@@ -59,70 +82,70 @@ public class Factory {
    * @return the RDF::Repository class
    */
   public RubyClass getRepositoryClass() {
-    return getModule().getClass("Repository");
+    return getRDF().getClass("Repository");
   }
 
   /**
    * @return the RDF::Graph class
    */
   public RubyClass getGraphClass() {
-    return getModule().getClass("Graph");
+    return getRDF().getClass("Graph");
   }
 
   /**
    * @return the RDF::Pattern class
    */
   public RubyClass getPatternClass() {
-    return getModule().getClass("Pattern");
+    return getRDF().getClass("Pattern");
   }
 
   /**
    * @return the RDF::Variable class
    */
   public RubyClass getVariableClass() {
-    return getModule().getClass("Variable");
+    return getRDF().getClass("Variable");
   }
 
   /**
    * @return the RDF::Statement class
    */
   public RubyClass getStatementClass() {
-    return getModule().getClass("Statement");
+    return getRDF().getClass("Statement");
   }
 
   /**
    * @return the RDF::Value class
    */
   public RubyClass getValueClass() {
-    return getModule().getClass("Value");
+    return getRDF().getClass("Value");
   }
 
   /**
    * @return the RDF::Resource class
    */
   public RubyClass getResourceClass() {
-    return getModule().getClass("Resource");
+    return getRDF().getClass("Resource");
   }
 
   /**
    * @return the RDF::Node class
    */
   public RubyClass getNodeClass() {
-    return getModule().getClass("Node");
+    return getRDF().getClass("Node");
   }
 
   /**
    * @return the RDF::URI class
    */
   public RubyClass getURIClass() {
-    return getModule().getClass("URI");
+    return getRDF().getClass("URI");
   }
 
   /**
    * @return the RDF::Literal class
    */
   public RubyClass getLiteralClass() {
-    return getModule().getClass("Literal");
+    return getRDF().getClass("Literal");
   }
 
   /**
