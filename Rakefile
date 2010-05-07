@@ -7,3 +7,10 @@ begin
   require 'rakefile' # http://github.com/bendiken/rakefile
 rescue LoadError => e
 end
+
+desc "Build all Java class files"
+task :build do
+  sh "javac -cp src #{Dir.glob('src/**/*.java').join(' ')}"
+end
+
+task :default => :build
