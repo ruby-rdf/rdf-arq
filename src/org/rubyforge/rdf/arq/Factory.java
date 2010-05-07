@@ -5,9 +5,9 @@ import org.jruby.runtime.builtin.IRubyObject;
 import org.jruby.runtime.ThreadContext;
 import org.jruby.runtime.Block;
 import org.jruby.exceptions.RaiseException;
-import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.graph.Triple;   
 import com.hp.hpl.jena.graph.TripleMatch;
+import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.sparql.core.Quad;
 
 /**
@@ -16,6 +16,13 @@ import com.hp.hpl.jena.sparql.core.Quad;
  * @author Arto Bendiken
  */
 public class Factory extends org.rubyforge.rdf.Factory {
+  /**
+   * @param  runtime    the Ruby runtime to use
+   */
+  public Factory(Ruby runtime) {
+    super(runtime);
+  }
+
   /**
    * @param  node       the Jena node
    * @return an RDF::Value instance

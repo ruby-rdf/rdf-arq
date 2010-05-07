@@ -1,16 +1,18 @@
 package org.rubyforge.rdf.arq;
 
-import com.hp.hpl.jena.graph.Node;
-import com.hp.hpl.jena.graph.Triple;
-import com.hp.hpl.jena.graph.TripleMatch;
-import com.hp.hpl.jena.rdf.model.AnonId;
-import com.hp.hpl.jena.util.iterator.ExtendedIterator;
-import com.hp.hpl.jena.util.iterator.NiceIterator;
 import org.jruby.*;
 import org.jruby.runtime.builtin.IRubyObject;
 import org.jruby.runtime.Block;
+import com.hp.hpl.jena.graph.Triple;
+import com.hp.hpl.jena.graph.TripleMatch;
+import com.hp.hpl.jena.graph.Node;
+import com.hp.hpl.jena.rdf.model.AnonId;
+import com.hp.hpl.jena.util.iterator.ExtendedIterator;
+import com.hp.hpl.jena.util.iterator.NiceIterator;
 
 /**
+ * Wraps an RDF::Enumerator instance for Jena/ARQ compatibility.
+ *
  * @author Arto Bendiken
  */
 public class TripleIterator extends NiceIterator<Triple> implements ExtendedIterator<Triple>, com.hp.hpl.jena.graph.TripleIterator {
